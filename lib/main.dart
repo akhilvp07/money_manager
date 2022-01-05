@@ -16,6 +16,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // This is the theme of your application.
         primarySwatch: Colors.blue,
+        selectedRowColor: Colors.purple,
+        unselectedWidgetColor: Colors.grey,
+        iconTheme: const IconThemeData(color: Colors.blue),
       ),
       home: const ScreenHome(),
     );
