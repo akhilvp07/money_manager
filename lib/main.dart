@@ -18,7 +18,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         selectedRowColor: Colors.purple,
         unselectedWidgetColor: Colors.grey,
-        iconTheme: const IconThemeData(color: Colors.blue),
+        iconTheme: const IconThemeData(
+          color: Colors.blue,
+        ),
+        textTheme: const TextTheme(
+          headline6: TextStyle(
+            color: Colors.black,
+            fontStyle: FontStyle.normal,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
       ),
       home: const ScreenHome(),
     );
