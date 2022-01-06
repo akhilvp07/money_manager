@@ -1,6 +1,7 @@
 import 'package:hive_flutter/adapters.dart';
 import 'package:money_manager/models/category/category_model.dart';
 
+// ignore: constant_identifier_names
 const CATEGORY_DB_NAME = 'category_database';
 
 abstract class CategoryDbFunctions {
