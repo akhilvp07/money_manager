@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:money_manager/db/category/category_db.dart';
 import 'package:money_manager/screens/categories/expense_category_list.dart';
 import 'package:money_manager/screens/categories/income_category_list.dart';
 
@@ -19,6 +20,10 @@ class _ScreenCategoriesState extends State<ScreenCategories>
       length: 2,
       vsync: this,
     );
+    CategoryDB().getCategories().then((value) {
+      print('Get categories');
+      print(value.toString());
+    });
     super.initState();
   }
 
