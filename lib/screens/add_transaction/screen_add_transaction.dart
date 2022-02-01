@@ -11,9 +11,11 @@ class ScreenAddTransaction extends StatefulWidget {
 }
 
 class _ScreenAddTransactionState extends State<ScreenAddTransaction> {
-  CategoryType? _selectedCategoryType = CategoryType.expense;
+  CategoryType? _selectedCategoryType;
   DateTime? _selectedDate;
-  CategoryModel? _selectedCategoryModel;
+  //CategoryModel? _selectedCategoryModel;
+
+  String? _categoryID;
 
 /*
 Fields to be displayed:
@@ -23,6 +25,12 @@ Fields to be displayed:
   Date
   Category Type
 */
+  @override
+  void initState() {
+    _selectedCategoryType = CategoryType.expense;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -51,7 +59,7 @@ Fields to be displayed:
                     hintText: 'Amount', border: OutlineInputBorder()),
               ),
 
-              //Date
+              //Date selection
               TextButton.icon(
                 onPressed: () async {
                   final _selectedDateTemp = await showDatePicker(
@@ -86,6 +94,7 @@ Fields to be displayed:
                         onChanged: (CategoryType? newValue) {
                           setState(() {
                             _selectedCategoryType = newValue;
+                            _categoryID = null;
                           });
                         },
                       ),
@@ -103,6 +112,7 @@ Fields to be displayed:
                         onChanged: (CategoryType? newValue) {
                           setState(() {
                             _selectedCategoryType = newValue;
+                            _categoryID = null;
                           });
                         },
                       ),
@@ -112,10 +122,13 @@ Fields to be displayed:
                 ],
               ),
               //Category type dropdown
-              DropdownButton(
-                //value: _selectedCategoryModel.name,
+              DropdownButton<String>(
+                value: _categoryID,
                 hint: const Text('Select Category'),
-                items: CategoryDB.instance.expenseCategoryListNotifier.value
+                items: (_selectedCategoryType == CategoryType.income
+                        ? CategoryDB.instance.incomeCategoryListNotifier
+                        : CategoryDB.instance.expenseCategoryListNotifier)
+                    .value
                     .map((e) {
                   return DropdownMenuItem(
                     child: Text(e.name),
@@ -124,7 +137,7 @@ Fields to be displayed:
                 }).toList(),
                 onChanged: (selectedValue) {
                   setState(() {
-                    //_selectedCategoryModel.name = selectedValue;
+                    _categoryID = selectedValue;
                   });
                   print(selectedValue);
                 },
