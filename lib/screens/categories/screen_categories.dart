@@ -20,10 +20,7 @@ class _ScreenCategoriesState extends State<ScreenCategories>
       length: 2,
       vsync: this,
     );
-    CategoryDB().getCategories().then((value) {
-      print('Get categories');
-      print(value.toString());
-    });
+    CategoryDB().refreshUI();
     super.initState();
   }
 
