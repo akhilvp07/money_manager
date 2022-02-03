@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:money_manager/models/category/category_model.dart';
+import 'package:money_manager/models/transaction/transaction_model.dart';
 import 'package:money_manager/screens/add_transaction/screen_add_transaction.dart';
 import 'package:money_manager/screens/home/screen_home.dart';
 
-import 'db/category/category_db.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +17,11 @@ Future<void> main() async {
   if (!Hive.isAdapterRegistered(CategoryModelAdapter().typeId)) {
     Hive.registerAdapter(CategoryModelAdapter());
   }
-  await CategoryDB.instance.refreshUI();
+  if (!Hive.isAdapterRegistered(TransactionModelAdapter().typeId)) {
+    Hive.registerAdapter(TransactionModelAdapter());
+  }
+  //await CategoryDB.instance.refreshUI();
+  //await TransactionDb.instance.refreshTransactions();
   runApp(const MyApp());
 }
 

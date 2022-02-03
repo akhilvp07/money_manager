@@ -31,8 +31,8 @@ class CategoryModel {
     this.isDeleted = false,
   });
 
-  @override
-  String toString() {
-    return '$name $type';
-  }
+  // @override
+  // String toString() {
+  //   return '$name $type';
+  // }
 }
