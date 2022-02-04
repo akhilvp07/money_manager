@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:money_manager/db/category/category_db.dart';
 import 'package:money_manager/screens/add_transaction/screen_add_transaction.dart';
 import 'package:money_manager/screens/categories/category_add_popup.dart';
 import 'package:money_manager/screens/categories/screen_categories.dart';

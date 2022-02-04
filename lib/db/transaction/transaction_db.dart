@@ -13,10 +13,10 @@ abstract class TransactionDbFunctions {
   Future<void> refreshTransactions();
 }
 
-class TransactionDb implements TransactionDbFunctions {
-  TransactionDb._internal();
-  static TransactionDb instance = TransactionDb._internal();
-  factory TransactionDb() {
+class TransactionDB implements TransactionDbFunctions {
+  TransactionDB._internal();
+  static TransactionDB instance = TransactionDB._internal();
+  factory TransactionDB() {
     return instance;
   }
 

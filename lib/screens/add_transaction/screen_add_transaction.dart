@@ -200,8 +200,8 @@ Fields to be displayed:
       category: _selectedCategoryModel!,
     );
 
-    await TransactionDb.instance.insertTransaction(transaction);
+    await TransactionDB.instance.insertTransaction(transaction);
     Navigator.of(context).pop();
-    TransactionDb.instance.refreshTransactions();
+    TransactionDB.instance.refreshTransactions();
   }
 }

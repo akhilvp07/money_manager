@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
 import 'package:money_manager/db/category/category_db.dart';
 import 'package:money_manager/db/transaction/transaction_db.dart';
@@ -11,10 +11,10 @@ class ScreenTransactions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TransactionDb.instance.refreshTransactions();
+    TransactionDB.instance.refreshTransactions();
     CategoryDB.instance.refreshUI();
     return ValueListenableBuilder(
-      valueListenable: TransactionDb.instance.transactionsListNotifier,
+      valueListenable: TransactionDB.instance.transactionsListNotifier,
       builder: (BuildContext ctx, List<TransactionModel> newList, Widget? _) {
         return ListView.separated(
           padding: const EdgeInsets.symmetric(
@@ -22,25 +22,41 @@ class ScreenTransactions extends StatelessWidget {
           ),
           itemBuilder: (ctx, index) {
             final _transaction = newList[index];
-            return Card(
-              child: ListTile(
-                leading: CircleAvatar(
-                  radius: 30,
-                  child: Text(
-                    parseDate(_transaction.date),
-                    textAlign: TextAlign.center,
+            return Slidable(
+              key: Key(_transaction.id!),
+              startActionPane: ActionPane(
+                motion: const ScrollMotion(),
+                children: [
+                  SlidableAction(
+                    onPressed: (ctx) {
+                      TransactionDB.instance
+                          .deleteTransaction(_transaction.id!);
+                    },
+                    icon: Icons.delete,
                   ),
-                  backgroundColor: _transaction.type == CategoryType.income
-                      ? Colors.green
-                      : Colors.red,
-                ),
-                title: Text('₹ ${_transaction.amount.toString()}'),
-                subtitle: Text(_transaction.purpose),
-                trailing: IconButton(
-                  icon: const Icon(Icons.delete),
-                  onPressed: () {
-                    TransactionDb.instance.deleteTransaction(_transaction.id!);
-                  },
+                ],
+              ),
+              child: Card(
+                child: ListTile(
+                  leading: CircleAvatar(
+                    radius: 30,
+                    child: Text(
+                      parseDate(_transaction.date),
+                      textAlign: TextAlign.center,
+                    ),
+                    backgroundColor: _transaction.type == CategoryType.income
+                        ? Colors.green
+                        : Colors.red,
+                  ),
+                  title: Text('₹ ${_transaction.amount.toString()}'),
+                  subtitle: Text(_transaction.purpose),
+                  // trailing: IconButton(
+                  //   icon: const Icon(Icons.delete),
+                  //   onPressed: () {
+                  //     TransactionDB.instance
+                  //         .deleteTransaction(_transaction.id!);
+                  //   },
+                  // ),
                 ),
               ),
             );
